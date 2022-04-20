@@ -13,3 +13,23 @@ function render(){
       
 }
 render();
+
+function initActions() {
+  let favoriteBooks = [];
+
+  const booksDOM = document.querySelectorAll('a.book__image');
+  
+  for (let bookDOM of booksDOM) {
+    bookDOM.addEventListener('dblclick', function() {
+      bookDOM.classList.add('favorite');
+      const bookId = bookDOM.getAttribute('data-id');
+      console.log(bookId);
+      favoriteBooks.push(bookId);
+      console.log(favoriteBooks);
+    });
+
+  }
+}
+
+initActions();
+
