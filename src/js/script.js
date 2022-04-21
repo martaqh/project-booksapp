@@ -46,7 +46,7 @@ function initActions() {
   filtersForm.addEventListener('click', function(event) {
 
     if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter') {
-      console.log(event.target.value);
+      
       if (event.target.checked == true) {
         filters.push(event.target.value);
       } else {
@@ -60,8 +60,36 @@ function initActions() {
     }
 
     console.log(filters);
+
+    function showFilteredBooks() {
+      for (let book of dataSource.books) {
+        let shouldBeHidden = false;
+        for (let filter of filters) {
+          console.log(book.details[filter]);
+          if (filter && book.details[filter] == false) {
+            shouldBeHidden = true;
+            break;
+          }
+        }
+        if (shouldBeHidden == true) {
+          document.querySelector('.book__image[data-id="' + book.id + '"]').classList.add('hidden');
+        } else {
+          document.querySelector('.book__image[data-id="' + book.id + '"]').classList.remove('hidden');
+        }
+      } 
+    }
+    showFilteredBooks();
   });
+
+  
+
+
 }
 
+
+
+
+
 initActions();
+
 
