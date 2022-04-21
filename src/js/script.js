@@ -1,6 +1,8 @@
 
 const bookTemaplate = Handlebars.compile(document.querySelector('#template-book').innerHTML);
 const booksList = document.querySelector('.books-list');
+const filtersForm = document.querySelector('.filters');
+let filters = [];
 
 function render(){
   for (let book of dataSource.books) {
@@ -19,7 +21,7 @@ function initActions() {
 
   const booksListDOM = document.querySelector('.books-list');
 
-  booksListDOM.addEventListener('dblclick', function() {
+  booksListDOM.addEventListener('dblclick', function(event) {
 
     if (event.target.offsetParent.classList.contains('book__image')) {
         
@@ -39,7 +41,26 @@ function initActions() {
         }
       }
     }
-  });  
+  });
+
+  filtersForm.addEventListener('click', function(event) {
+
+    if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter') {
+      console.log(event.target.value);
+      if (event.target.checked == true) {
+        filters.push(event.target.value);
+      } else {
+
+        for(let i = 0; i < filters.length; i++) {                        
+          if (filters[i] == event.target.value) { 
+            filters.splice(i, 1);      
+          }
+        }
+      }
+    }
+
+    console.log(filters);
+  });
 }
 
 initActions();
